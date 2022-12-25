@@ -1,0 +1,25 @@
+a, p {color:ghostwhite;}
+
+   body { background-color: dimgray;}
+   
+   .center-block {float:none}
+     
+   #btn-back-to-top {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        display: none;
+        z-index: auto;
+        }
+        
+     .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+    }
+
+    .col-lg-4 p {
+     margin-right: .75rem;
+     margin-left: .75rem;
+    }
+
+    
