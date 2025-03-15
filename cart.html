@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車示範</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            margin-bottom: 15px;
+        }
+        .cart {
+            margin-top: 30px;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .cart-table th {
+            background-color: #f4f4f4;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>購物車示範</h1>
+
+<div class="product">
+    <h2>商品 1 - $10</h2>
+    <button onclick="addToCart('商品 1', 10)">加入購物車</button>
+</div>
+<div class="product">
+    <h2>商品 2 - $20</h2>
+    <button onclick="addToCart('商品 2', 20)">加入購物車</button>
+</div>
+<div class="product">
+    <h2>商品 3 - $30</h2>
+    <button onclick="addToCart('商品 3', 30)">加入購物車</button>
+</div>
+
+<div class="cart">
+    <h2>您的購物車</h2>
+    <table class="cart-table" id="cartTable">
+        <thead>
+            <tr>
+                <th>商品名稱</th>
+                <th>價格</th>
+                <th>數量</th>
+                <th>總價</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p class="total">總金額: $<span id="totalAmount">0</span></p>
+    <button onclick="clearCart()">清空購物車</button>
+</div>
+
+<script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+        const existingProduct = cart.find(item => item.name === productName);
+        if (existingProduct) {
+            existingProduct.quantity++;
+            existingProduct.totalPrice = existingProduct.quantity * price;
+        } else {
+            cart.push({
+                name: productName,
+                price: price,
+                quantity: 1,
+                totalPrice: price
+            });
+        }
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartTableBody = document.getElementById('cartTable').getElementsByTagName('tbody')[0];
+        cartTableBody.innerHTML = '';
+
+        let totalAmount = 0;
+        cart.forEach(item => {
+            const row = cartTableBody.insertRow();
+            row.innerHTML = `
+                <td>${item.name}</td>
+                <td>$${item.price}</td>
+                <td>${item.quantity}</td>
+                <td>$${item.totalPrice}</td>
+            `;
+            totalAmount += item.totalPrice;
+        });
+
+        document.getElementById('totalAmount').textContent = totalAmount;
+    }
+
+    function clearCart() {
+        cart = [];
+        updateCart();
+    }
+</script>
+
+</body>
+</html>
